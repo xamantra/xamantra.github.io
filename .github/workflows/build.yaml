@@ -1,0 +1,36 @@
+name: Deploy Web
+on:
+  push:
+    branches: ["master"]
+
+jobs:
+  build-deploy:
+    name: Build Web App
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v2
+
+      - name: Install flutter
+        uses: subosito/flutter-action@v1
+        with:
+          flutter-version: '3.0.0'
+          channel: 'stable'
+
+      - name: Get flutter depedencies
+        shell: bash
+        run: flutter pub get
+
+      - name: Build flutter web
+        shell: bash
+        run: flutter build web --release --verbose
+
+      - name: Copy build files
+        shell: bash
+        run: cp -avr build/web/* docs/
+
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          branch: "deploy"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
