@@ -27,7 +27,9 @@ jobs:
 
       - name: Copy build files
         shell: bash
-        run: cp -avr build/web/* docs/
+        run: |
+          mkdir docs/
+          cp -avr build/web/* docs/
 
       - name: Commit & Push changes
         uses: actions-js/push@master
