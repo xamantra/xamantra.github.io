@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://xamantra.github.io/sitemap.xml
-Host: https://xamantra.github.io
