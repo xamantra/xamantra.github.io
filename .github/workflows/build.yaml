@@ -28,7 +28,6 @@ jobs:
       - name: Copy build files
         shell: bash
         run: |
-          mkdir docs/
           cp -avr build/web/* docs/
 
       - name: Commit & Push changes
