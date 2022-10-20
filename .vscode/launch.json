@@ -1,0 +1,38 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Web - Debug",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "debug",
+            "args": [
+                "-v",
+                "web -d chrome",
+                "--web-port=4747"
+            ]
+        },
+        {
+            "name": "Web - Release",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release",
+            "args": [
+                "-v",
+                "web -d chrome",
+                "--web-port=4747"
+            ]
+        },
+        {
+            "name": "Web - Profile",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile",
+            "args": [
+                "-v",
+                "web -d chrome",
+                "--web-port=4747"
+            ]
+        }
+    ]
+}
