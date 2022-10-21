@@ -42,8 +42,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-assets/data/profile.json
-assets/data/experience.json
-assets/data/about_me.json
-assets/data/skills.json
-assets/data/portfolio.json
