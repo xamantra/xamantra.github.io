@@ -29,6 +29,7 @@ jobs:
         shell: bash
         run: |
           cp -avr build/web/* docs/
+          cp -avr docs/index.html docs/404.html
 
       - name: Commit & Push changes
         uses: actions-js/push@master
