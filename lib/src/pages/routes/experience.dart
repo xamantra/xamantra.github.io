@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_portfolio/src/controllers/core/provider.dart';
 import 'package:flutter_portfolio/src/controllers/data_controller.dart';
 import 'package:flutter_portfolio/src/utils/responsive_util.dart';
+import 'package:flutter_portfolio/src/widgets/accent_widget.dart';
 import 'package:flutter_portfolio/src/widgets/experience_item.dart';
 import 'package:flutter_portfolio/theme.dart';
 
@@ -21,29 +22,33 @@ class Experience extends StatelessWidget {
             return AnimatedContainer(
               duration: Duration(milliseconds: 350),
               width: double.infinity,
-              padding: EdgeInsets.all(Responsive.maxMainSpacing(context) * 1.333),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "Experience",
-                    style: Responsive.mainHeadline(context),
-                  ),
-                  SizedBox(height: Responsive.maxSmallSpacing(context)),
-                  Container(
-                    height: 6,
-                    width: 48,
-                    decoration: BoxDecoration(
-                      color: accentColor(context),
-                      borderRadius: BorderRadius.circular(5),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 350),
+                    width: double.infinity,
+                    padding: EdgeInsets.all(Responsive.maxMainSpacing(context) * 1.333),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Experience",
+                          style: Responsive.mainHeadline(context),
+                        ),
+                        SizedBox(height: Responsive.maxSmallSpacing(context)),
+                        AccentWidget(),
+                      ],
                     ),
                   ),
-                  SizedBox(height: Responsive.maxSmallSpacing(context)),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: experiences.map((e) => ExperienceItem(experienceData: e)).toList(),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: Responsive.isVerySmall(context) ? 4 : Responsive.maxMainSpacing(context) * 1.333),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: experiences.map((e) => ExperienceItem(experienceData: e)).toList(),
+                    ),
                   ),
                 ],
               ),
