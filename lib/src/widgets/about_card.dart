@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_portfolio/src/controllers/core/provider.dart';
 import 'package:flutter_portfolio/src/controllers/data_controller.dart';
 import 'package:flutter_portfolio/src/utils/responsive_util.dart';
+import 'package:flutter_portfolio/src/widgets/accent_widget.dart';
 import 'package:flutter_portfolio/theme.dart';
 
 class AboutCard extends StatelessWidget {
@@ -28,14 +29,7 @@ class AboutCard extends StatelessWidget {
                   style: Responsive.mainHeadline(context),
                 ),
                 SizedBox(height: Responsive.maxSmallSpacing(context)),
-                Container(
-                  height: 6,
-                  width: 48,
-                  decoration: BoxDecoration(
-                    color: accentColor(context),
-                    borderRadius: BorderRadius.circular(5),
-                  ),
-                ),
+                AccentWidget(),
                 SizedBox(height: Responsive.maxSmallSpacing(context)),
                 Text(
                   about.description,

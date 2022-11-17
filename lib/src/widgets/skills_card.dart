@@ -3,6 +3,7 @@ import 'package:flutter_portfolio/src/controllers/core/provider.dart';
 import 'package:flutter_portfolio/src/controllers/data_controller.dart';
 import 'package:flutter_portfolio/src/data/skill.dart';
 import 'package:flutter_portfolio/src/utils/responsive_util.dart';
+import 'package:flutter_portfolio/src/widgets/accent_widget.dart';
 
 class SkillsCard extends StatelessWidget {
   const SkillsCard({Key? key}) : super(key: key);
@@ -28,6 +29,8 @@ class SkillsCard extends StatelessWidget {
                   style: Responsive.mainHeadline(context),
                 ),
                 SizedBox(height: Responsive.maxSmallSpacing(context)),
+                AccentWidget(),
+                SizedBox(height: Responsive.maxSmallSpacing(context)),
                 Column(
                   children: skills.map((e) => _SkillItem(skillData: e)).toList(),
                 ),
@@ -47,44 +50,42 @@ class _SkillItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(12),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            SizedBox(
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 24),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SizedBox(
+            width: 36,
+            height: 36,
+            child: Image.asset(
+              skillData.techLogoPath,
               width: 36,
               height: 36,
-              child: Image.asset(
-                skillData.techLogoPath,
-                width: 36,
-                height: 36,
-              ),
             ),
-            SizedBox(width: Responsive.maxSmallSpacing(context)),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    skillData.name,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                  SizedBox(height: Responsive.maxSmallSpacing(context) / 2),
-                  Text(
-                    skillData.description,
-                    style: Theme.of(context).textTheme.caption,
-                  ),
-                ],
-              ),
+          ),
+          SizedBox(width: Responsive.maxSmallSpacing(context)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  skillData.name,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+                SizedBox(height: Responsive.maxSmallSpacing(context) / 2),
+                Text(
+                  skillData.description,
+                  style: Theme.of(context).textTheme.caption,
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
