@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 class Responsive {
+  static Size _getSize(BuildContext context) {
+    return MediaQuery.of(context).size;
+  }
+
   static double maxContainerWidth(BuildContext context, double width) {
     return MediaQuery.of(context).size.width >= width ? width : double.infinity;
   }
@@ -44,5 +48,17 @@ class Responsive {
             fontSize: 14,
           )
         : style;
+  }
+
+  static bool isMediumScreenOrSmaller(BuildContext context) {
+    return _getSize(context).width <= 580;
+  }
+
+  static bool isVerySmall(BuildContext context) {
+    return _getSize(context).width <= 400;
+  }
+
+  static bool isExtremelySmall(BuildContext context) {
+    return _getSize(context).width <= 340;
   }
 }

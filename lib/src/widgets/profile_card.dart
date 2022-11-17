@@ -11,6 +11,7 @@ class ProfileCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final dataController = Provider.of<DataController>(context);
+    final isExtremelySmall = Responsive.isExtremelySmall(context);
     return Card(
       child: StreamBuilder(
         stream: dataController.state,
@@ -20,25 +21,28 @@ class ProfileCard extends StatelessWidget {
             duration: Duration(milliseconds: 350),
             padding: EdgeInsets.all(Responsive.maxMainSpacing(context) * 1.333),
             child: Row(
+              mainAxisAlignment: isExtremelySmall ? MainAxisAlignment.center : MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
               children: [
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 350),
-                  width: Responsive.maxSquareSize(context),
-                  height: Responsive.maxSquareSize(context),
-                  decoration: BoxDecoration(
-                    color: backgroundOnCard(context),
-                    borderRadius: BorderRadius.circular(24),
-                    image: DecorationImage(
-                      image: Image.asset(
-                        profile.imagePath,
+                isExtremelySmall
+                    ? SizedBox()
+                    : AnimatedContainer(
+                        duration: Duration(milliseconds: 350),
                         width: Responsive.maxSquareSize(context),
                         height: Responsive.maxSquareSize(context),
-                      ).image,
-                    ),
-                  ),
-                ),
-                SizedBox(width: Responsive.maxMainSpacing(context)),
+                        decoration: BoxDecoration(
+                          color: backgroundOnCard(context),
+                          borderRadius: BorderRadius.circular(24),
+                          image: DecorationImage(
+                            image: Image.asset(
+                              profile.imagePath,
+                              width: Responsive.maxSquareSize(context),
+                              height: Responsive.maxSquareSize(context),
+                            ).image,
+                          ),
+                        ),
+                      ),
+                SizedBox(width: isExtremelySmall ? 0 : Responsive.maxMainSpacing(context)),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
@@ -48,24 +52,48 @@ class ProfileCard extends StatelessWidget {
                       style: Responsive.mainHeadline(context),
                     ),
                     SizedBox(height: Responsive.maxSmallSpacing(context)),
-                    Badge(profile.role),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Badge(profile.role),
+                        SizedBox(width: 8),
+                        !Responsive.isVerySmall(context)
+                            ? SizedBox()
+                            : AnimatedContainer(
+                                duration: Duration(milliseconds: 350),
+                                width: 24,
+                                height: 24,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: Image.network(
+                                      profile.techLogoUrl,
+                                      width: 24,
+                                      height: 24,
+                                    ).image,
+                                  ),
+                                ),
+                              ),
+                      ],
+                    ),
                   ],
                 ),
-                Spacer(),
-                AnimatedContainer(
-                  duration: Duration(milliseconds: 350),
-                  width: Responsive.maxSquareSize(context) * 0.65,
-                  height: Responsive.maxSquareSize(context) * 0.65,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: Image.network(
-                        profile.techLogoUrl,
+                isExtremelySmall ? SizedBox() : Spacer(),
+                Responsive.isVerySmall(context)
+                    ? SizedBox()
+                    : AnimatedContainer(
+                        duration: Duration(milliseconds: 350),
                         width: Responsive.maxSquareSize(context) * 0.65,
                         height: Responsive.maxSquareSize(context) * 0.65,
-                      ).image,
-                    ),
-                  ),
-                ),
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: Image.network(
+                              profile.techLogoUrl,
+                              width: Responsive.maxSquareSize(context) * 0.65,
+                              height: Responsive.maxSquareSize(context) * 0.65,
+                            ).image,
+                          ),
+                        ),
+                      ),
               ],
             ),
           );
