@@ -46,6 +46,7 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
     return StreamBuilder(
       stream: themeController.state,
       builder: (context, snapshot) {
+        final isMediumScreenOrSmaller = Responsive.isMediumScreenOrSmaller(context);
         return Scaffold(
           body: Stack(
             children: [
@@ -62,45 +63,48 @@ class _HomeState extends State<Home> with SingleTickerProviderStateMixin {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Expanded(
-                            child: TabBar(
-                              controller: tabController,
-                              isScrollable: true,
-                              physics: BouncingScrollPhysics(),
-                              indicatorColor: accentColor(context),
-                              tabs: [
-                                Tab(
-                                  text: "About",
-                                ),
-                                Tab(
-                                  text: "Portfolio",
-                                ),
-                                Tab(
-                                  text: "Experience",
-                                ),
-                                Tab(
-                                  text: "Contact",
-                                ),
-                              ],
-                              onTap: (index) {
-                                switch (index) {
-                                  case 0:
-                                    Navigator.pushNamed(context, "/about");
-                                    break;
-                                  case 1:
-                                    Navigator.pushNamed(context, "/portfolio");
-                                    break;
-                                  case 2:
-                                    Navigator.pushNamed(context, "/experience");
-                                    break;
-                                  case 3:
-                                    Navigator.pushNamed(context, "/contact");
-                                    break;
-                                  default:
-                                }
-                              },
+                            child: Align(
+                              alignment: isMediumScreenOrSmaller ? Alignment.centerLeft : Alignment.center,
+                              child: TabBar(
+                                controller: tabController,
+                                isScrollable: true,
+                                physics: BouncingScrollPhysics(),
+                                indicatorColor: accentColor(context),
+                                tabs: [
+                                  Tab(
+                                    text: "About",
+                                  ),
+                                  Tab(
+                                    text: "Portfolio",
+                                  ),
+                                  Tab(
+                                    text: "Experience",
+                                  ),
+                                  Tab(
+                                    text: "Contact",
+                                  ),
+                                ],
+                                onTap: (index) {
+                                  switch (index) {
+                                    case 0:
+                                      Navigator.pushNamed(context, "/about");
+                                      break;
+                                    case 1:
+                                      Navigator.pushNamed(context, "/portfolio");
+                                      break;
+                                    case 2:
+                                      Navigator.pushNamed(context, "/experience");
+                                      break;
+                                    case 3:
+                                      Navigator.pushNamed(context, "/contact");
+                                      break;
+                                    default:
+                                  }
+                                },
+                              ),
                             ),
                           ),
-                          SizedBox(width: Responsive.isMediumScreenOrSmaller(context) ? 64 : 0),
+                          SizedBox(width: isMediumScreenOrSmaller ? 64 : 0),
                         ],
                       ),
                       SizedBox(height: 24),
