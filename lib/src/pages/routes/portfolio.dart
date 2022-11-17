@@ -18,6 +18,7 @@ class Portfolio extends StatelessWidget {
           stream: dataController.state,
           builder: (context, snapshot) {
             final projects = dataController.projects;
+            final isMediumScreenOrSmaller = Responsive.isMediumScreenOrSmaller(context);
             return AnimatedContainer(
               duration: Duration(milliseconds: 350),
               width: double.infinity,
@@ -40,18 +41,29 @@ class Portfolio extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: Responsive.maxSmallSpacing(context)),
-                  GridView.builder(
-                    itemCount: projects.length,
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 28,
-                      childAspectRatio: 0.9,
-                    ),
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      return PortfolioItem(projectData: projects[index]);
-                    },
-                  ),
+                  isMediumScreenOrSmaller
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: projects.length,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 24),
+                              child: PortfolioItem(projectData: projects[index]),
+                            );
+                          },
+                        )
+                      : GridView.builder(
+                          itemCount: projects.length,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 28,
+                            childAspectRatio: 0.9,
+                          ),
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            return PortfolioItem(projectData: projects[index]);
+                          },
+                        ),
                 ],
               ),
             );
