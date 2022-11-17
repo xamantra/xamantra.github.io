@@ -12,6 +12,7 @@ class Portfolio extends StatelessWidget {
   Widget build(BuildContext context) {
     final dataController = Provider.of<DataController>(context);
     return SingleChildScrollView(
+      primary: true,
       physics: BouncingScrollPhysics(),
       child: Card(
         child: StreamBuilder(
@@ -44,6 +45,7 @@ class Portfolio extends StatelessWidget {
                   isMediumScreenOrSmaller
                       ? ListView.builder(
                           shrinkWrap: true,
+                          primary: false,
                           itemCount: projects.length,
                           itemBuilder: (context, index) {
                             return Padding(
