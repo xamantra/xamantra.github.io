@@ -18,59 +18,28 @@ class _PortfolioItemState extends State<PortfolioItem> {
 
   @override
   Widget build(BuildContext context) {
+    final isMediumScreenOrSmaller = Responsive.isMediumScreenOrSmaller(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        MouseRegion(
-          onHover: (event) {
-            setState(() {
-              hovered = true;
-            });
-          },
-          onExit: (event) {
-            setState(() {
-              hovered = false;
-            });
-          },
-          cursor: SystemMouseCursors.click,
-          child: GestureDetector(
-            onTap: () {
-              showProjectDialog(context, widget.projectData);
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25),
-                border: Border.all(color: borderColor(context), width: 1),
+        isMediumScreenOrSmaller
+            ? _ItemContent(widget: widget, hovered: hovered)
+            : MouseRegion(
+                onHover: (event) {
+                  setState(() {
+                    hovered = true;
+                  });
+                },
+                onExit: (event) {
+                  setState(() {
+                    hovered = false;
+                  });
+                },
+                cursor: SystemMouseCursors.click,
+                child: _ItemContent(widget: widget, hovered: hovered),
               ),
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  AnimatedOpacity(
-                    opacity: hovered ? 0.2 : 1,
-                    duration: Duration(milliseconds: 200),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(25),
-                      child: Image.asset(
-                        widget.projectData.previewImage,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  AnimatedOpacity(
-                    opacity: hovered ? 1 : 0,
-                    duration: Duration(milliseconds: 200),
-                    child: Icon(
-                      Icons.remove_red_eye,
-                      size: 36,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ),
         SizedBox(height: Responsive.maxSmallSpacing(context)),
         Padding(
           padding: const EdgeInsets.only(left: 8),
@@ -94,6 +63,56 @@ class _PortfolioItemState extends State<PortfolioItem> {
           ),
         )
       ],
+    );
+  }
+}
+
+class _ItemContent extends StatelessWidget {
+  const _ItemContent({
+    Key? key,
+    required this.widget,
+    required this.hovered,
+  }) : super(key: key);
+
+  final PortfolioItem widget;
+  final bool hovered;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showProjectDialog(context, widget.projectData);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          border: Border.all(color: borderColor(context), width: 1),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            AnimatedOpacity(
+              opacity: hovered ? 0.2 : 1,
+              duration: Duration(milliseconds: 200),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(25),
+                child: Image.asset(
+                  widget.projectData.previewImage,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            AnimatedOpacity(
+              opacity: hovered ? 1 : 0,
+              duration: Duration(milliseconds: 200),
+              child: Icon(
+                Icons.remove_red_eye,
+                size: 36,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
